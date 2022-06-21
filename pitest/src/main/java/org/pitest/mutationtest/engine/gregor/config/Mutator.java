@@ -51,6 +51,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.BigIntegerMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.NakedReceiverMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.PatternMatchMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveIncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveSwitchMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.SwitchMutator;
@@ -163,6 +164,11 @@ public final class Mutator {
     add("REMOVE_CONDITIONALS_ORD_ELSE", new RemoveConditionalMutator(
         Choice.ORDER, false));
     addGroup("REMOVE_CONDITIONALS", RemoveConditionalMutator.makeMutators());
+
+    /*
+     * Expanded Mutators for CSTP.
+     */
+    add("REMOVE_CSTP_PATTERN", PatternMatchMutator.PATTERN_MATCH_MUTATOR);
 
     add("TRUE_RETURNS", BooleanTrueReturnValsMutator.BOOLEAN_TRUE_RETURN);
     add("FALSE_RETURNS", BooleanFalseReturnValsMutator.BOOLEAN_FALSE_RETURN);
@@ -285,10 +291,6 @@ public final class Mutator {
 
   public static Collection<MethodMutatorFactory> all() {
     return fromStrings(MUTATORS.keySet());
-  }
-
-  public static Collection<String> allMutatorIds() {
-    return MUTATORS.keySet();
   }
 
   private static Collection<MethodMutatorFactory> stronger() {
