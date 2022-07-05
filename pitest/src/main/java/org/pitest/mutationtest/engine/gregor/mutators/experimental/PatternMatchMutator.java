@@ -55,18 +55,20 @@ class PatternMatchMethodVisitor extends MethodVisitor {
 
   @Override
   public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-    if (opcode == Opcodes.INVOKESPECIAL) {
-      //System.out.println("Name: " + name);
-      //System.out.println("Owner: " + owner);
+    System.out.println("=== Entered visitMethodInsn ===");
+    if (opcode == Opcodes.INVOKEVIRTUAL) {
+      System.out.println("Opcode: INVOKEVIRTUAL");
+      System.out.println("Name: " + name);
+      System.out.println("Owner: " + owner);
     }
 
-    if (opcode == Opcodes.INVOKESPECIAL && owner.contains("Flux") && name.equals("filter")) {
-      System.out.println("------------START------------");
-      System.out.println("INVOKESPECIAL Flux Method filter CALLED");
-
-    } else if (opcode == Opcodes.INVOKEVIRTUAL && owner.equals("java/lang/String") && name.equals("equals")) {
+    if (opcode == Opcodes.INVOKEVIRTUAL && owner.contains("Flux") && name.equals("filter")) {
       //System.out.println("------------START------------");
-      //System.out.println("Java String Equal Methods CALLED");
+      System.out.println("INVOKEVIRTUAL Flux Method filter CALLED");
+
+    } else if (opcode == Opcodes.INVOKEVIRTUAL && owner.contains("App") && name.equals("isEqual")) {
+      //System.out.println("------------START------------");
+      System.out.println("INVOKEVIRTUAL App isEqual Method CALLED");
       if (seenInvokeVirtual == 1 && seenLdc == 1) {
         seenEquals = 1;
       } else {
@@ -81,13 +83,14 @@ class PatternMatchMethodVisitor extends MethodVisitor {
       seenLdc = 0;
       seenEquals = 0;
     }
-    logInternalState();
-    System.out.println("-------------END-------------");
+    //logInternalState();
+    //System.out.println("-------------END-------------");
     super.visitMethodInsn(opcode, owner, name, desc, itf);
   }
 
   @Override
   public void visitLdcInsn(Object value) {
+    System.out.println("Entered visitLdcInsn");
     if (seenInvokeVirtual == 1) {
       //System.out.println("------------START------------");
       //System.out.println("SEEN LDC AFTER INVOKE VIRTUAL");
@@ -106,7 +109,7 @@ class PatternMatchMethodVisitor extends MethodVisitor {
 
   @Override
   public void visitJumpInsn(final int opcode, final Label label) {
-
+    System.out.println("Entered visitJumpInsn");
     // Hier wordt mutation gedaan?
     if (canMutate(opcode)
         && seenInvokeVirtual == 1
@@ -130,7 +133,7 @@ class PatternMatchMethodVisitor extends MethodVisitor {
   }
 
   private boolean canMutate(final int opcode) {
-    return opcode == Opcodes.IFEQ;
+    return opcode == Opcodes.INVOKESPECIAL;
   }
 
   private void logInternalState() {
