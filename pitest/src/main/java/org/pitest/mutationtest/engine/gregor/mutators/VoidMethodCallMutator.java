@@ -21,6 +21,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.TriFunction;
 
 public enum VoidMethodCallMutator implements MethodMutatorFactory {
 
@@ -43,8 +44,8 @@ public enum VoidMethodCallMutator implements MethodMutatorFactory {
     return name();
   }
 
-  private static BiFunction<String, String, Boolean> voidMethods() {
-    return (name, desc) -> MethodInfo.isVoid(desc) && !MethodInfo.isConstructor(name);
+  private static TriFunction<String, String, String, Boolean> voidMethods() {
+    return (name, desc, owner) -> MethodInfo.isVoid(desc) && !MethodInfo.isConstructor(name);
   }
 
 }

@@ -397,7 +397,7 @@
 		are used for few artifacts -->
 	<properties>
 		<!-- this revision number used only for local builds -->
-		<revision>nicks-special-version</revision>
+		<revision>nicks-special-version-2.0</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 

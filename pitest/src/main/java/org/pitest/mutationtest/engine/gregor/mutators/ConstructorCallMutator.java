@@ -21,6 +21,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.TriFunction;
 
 public enum ConstructorCallMutator implements MethodMutatorFactory {
 
@@ -38,8 +39,8 @@ public enum ConstructorCallMutator implements MethodMutatorFactory {
     return this.getClass().getName();
   }
 
-  private static BiFunction<String, String, Boolean> constructors() {
-    return (name, desc) -> MethodInfo.isConstructor(name);
+  private static TriFunction<String, String, String, Boolean> constructors() {
+    return (name, desc, owner) -> MethodInfo.isConstructor(name);
   }
 
   @Override

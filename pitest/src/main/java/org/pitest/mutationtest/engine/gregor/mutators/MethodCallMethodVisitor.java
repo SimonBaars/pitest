@@ -34,12 +34,13 @@ import org.pitest.mutationtest.engine.MutationIdentifier;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.TriFunction;
 
-class MethodCallMethodVisitor extends MethodVisitor {
+public class MethodCallMethodVisitor extends MethodVisitor {
 
   private static final Map<Type, Integer>   RETURN_TYPE_MAP = new HashMap<>();
 
-  private final BiFunction<String, String, Boolean> filter;
+  private final TriFunction<String, String, String, Boolean> filter;
   private final MethodMutatorFactory        factory;
   private final MutationContext             context;
   private final MethodInfo                  methodInfo;
@@ -55,10 +56,10 @@ class MethodCallMethodVisitor extends MethodVisitor {
     RETURN_TYPE_MAP.put(Type.DOUBLE_TYPE, DCONST_0);
   }
 
-  MethodCallMethodVisitor(final MethodInfo methodInfo,
+  public MethodCallMethodVisitor(final MethodInfo methodInfo,
       final MutationContext context, final MethodVisitor writer,
       final MethodMutatorFactory factory,
-      final BiFunction<String, String, Boolean> filter) {
+      final TriFunction<String, String, String, Boolean> filter) {
     super(ASMVersion.ASM_VERSION, writer);
     this.factory = factory;
     this.filter = filter;
@@ -70,7 +71,7 @@ class MethodCallMethodVisitor extends MethodVisitor {
   public void visitMethodInsn(final int opcode, final String owner,
       final String name, final String desc, boolean itf) {
 
-    if (!this.filter.apply(name, desc)
+    if (!this.filter.apply(name, desc, owner)
         || isCallToSuperOrOwnConstructor(name, owner)) {
       this.mv.visitMethodInsn(opcode, owner, name, desc, itf);
     } else {

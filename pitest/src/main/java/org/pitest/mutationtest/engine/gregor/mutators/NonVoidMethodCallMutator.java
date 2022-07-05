@@ -21,6 +21,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.TriFunction;
 
 public enum NonVoidMethodCallMutator implements MethodMutatorFactory {
 
@@ -29,8 +30,7 @@ public enum NonVoidMethodCallMutator implements MethodMutatorFactory {
   @Override
   public MethodVisitor create(final MutationContext context,
       final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
-    return new MethodCallMethodVisitor(methodInfo, context, methodVisitor,
-        this, nonVoidMethods());
+    return new MethodCallMethodVisitor(methodInfo, context, methodVisitor,this, nonVoidMethods());
   }
 
   @Override
@@ -43,8 +43,8 @@ public enum NonVoidMethodCallMutator implements MethodMutatorFactory {
     return name();
   }
 
-  private BiFunction<String, String, Boolean> nonVoidMethods() {
-    return (name, desc) -> !MethodInfo.isVoid(desc);
+  private TriFunction<String, String, String, Boolean> nonVoidMethods() {
+    return (name, desc, owner) -> !MethodInfo.isVoid(desc);
   }
 
 }
