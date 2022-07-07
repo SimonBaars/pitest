@@ -78,11 +78,15 @@ public class MethodCallMethodVisitor extends MethodVisitor {
       final MutationIdentifier newId = this.context.registerMutation(
           this.factory, "removed call to " + owner + "::" + name);
 
+//      System.out.println("I'm a mutate method isndnsnns");
+
       if (this.context.shouldMutate(newId)) {
 
+//        System.out.println("===== NYTAKJTJ ==");
+
         popStack(desc, name);
-        popThisIfNotStatic(opcode);
-        putReturnValueOnStack(desc, name);
+//        popThisIfNotStatic(opcode);
+//        putReturnValueOnStack(desc, name);
 
       } else {
         this.mv.visitMethodInsn(opcode, owner, name, desc, itf);
@@ -109,10 +113,13 @@ public class MethodCallMethodVisitor extends MethodVisitor {
     final Type[] argTypes = Type.getArgumentTypes(desc);
     for (int i = argTypes.length - 1; i >= 0; i--) {
       final Type argumentType = argTypes[i];
+//      System.out.println("tpeee "+argTypes[i]);
       if (argumentType.getSize() != 1) {
         this.mv.visitInsn(POP2);
+//        System.out.println("pop two");
       } else {
         this.mv.visitInsn(POP);
+//        System.out.println("pop one");
       }
     }
 
@@ -128,10 +135,12 @@ public class MethodCallMethodVisitor extends MethodVisitor {
   private void putReturnValueOnStack(final String desc, final String name) {
     final Type returnType = Type.getReturnType(desc);
     if (!returnType.equals(Type.VOID_TYPE)) {
+//      System.out.println("Putting returnType back on STACK "+returnType);
       final Integer opCode = RETURN_TYPE_MAP.get(returnType);
       if (opCode == null) {
         this.mv.visitInsn(Opcodes.ACONST_NULL);
       } else {
+//        System.out.println("Putting opCode "+opCode);
         this.mv.visitInsn(opCode);
       }
     } else if (MethodInfo.isConstructor(name)) {
