@@ -93,8 +93,19 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
 
   private static TriFunction<String, String, String, Boolean> voidMethods() {
     return (name, desc, owner) -> {
-      System.out.println("VISIT++"+name+", "+desc);
-      return name.equals("filter") && desc.equals("(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;");
+      System.out.println("===== VISIT " + name + ", " + desc + " =====");
+      if (name.equals("cache") && desc.equals("()Lreactor/core/publisher/Flux;")) {
+        return true;
+      }
+      else if (name.equals("checkpoint") && desc.equals("()Lreactor/core/publisher/Flux;")) {
+        return true;
+      }
+      else if (name.equals("filter")) {
+        return true;
+      }
+      else {
+        return false;
+      }
     };
   }
 
