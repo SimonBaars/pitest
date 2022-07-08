@@ -11,6 +11,88 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
 
   PATTERN_MATCH_MUTATOR;
 
+  public static final String REACTOR_FLUX_CLASS = "reactor/core/publisher/Flux";
+  public static final String REACTOR_MONO_CLASS = "reactor/core/publisher/Mono";
+
+  public static final List FLUX_METHODS = List.of(
+                                 "cache",
+                                          "cancelOn",
+                                          "checkpoint",
+                                          "concatWith",
+                                          "concatWithValues",
+                                          "contextWrite",
+                                          "defaultIfEmpty",
+                                          "delayElements",
+                                          "delaySequence",
+                                          "delaySubscription",
+                                          "delayUntil",
+                                          "distinct",
+                                          "distinctUntilChanged",
+                                          "doAfterTerminate",
+                                          "doFinally",
+                                          "doFirst",
+                                          "doOnCancel",
+                                          "doOnComplete",
+                                          "doOnEach",
+                                          "doOnError",
+                                          "doOnNext",
+                                          "doOnRequest",
+                                          "doOnSubscribe",
+                                          "doOnTerminate",
+                                          "expand",
+                                          "expandDeep",
+                                          "filter",
+                                          "filterWhen",
+                                          "hide",
+                                          "limitRate",
+                                          "limitRequest",
+                                          "log",
+                                          "mergeComparingWith",
+                                          "mergeOrderedWith",
+                                          "mergeWith",
+                                          "metrics",
+                                          "name",
+                                          "onBackpressureBuffer",
+                                          "onBackpressureDrop",
+                                          "onBackpressureError",
+                                          "onBackpressureLatest",
+                                          "onErrorContinue",
+                                          "onErrorMap",
+                                          "onErrorResume",
+                                          "onErrorReturn",
+                                          "onErrorStop",
+                                          "onTerminateDetach",
+                                          "or",
+                                          "publishOn",
+                                          "repeat",
+                                          "repeatWhen",
+                                          "retry",
+                                          "retryWhen",
+                                          "sample",
+                                          "sampleFirst",
+                                          "scan",
+                                          "share",
+                                          "skip",
+                                          "skipLast",
+                                          "skipUntil",
+                                          "skipUntilOther",
+                                          "skipWhile",
+                                          "sort",
+                                          "startWith",
+                                          "subscribeOn",
+                                          "subscriberContext",
+                                          "switchIfEmpty",
+                                          "tag",
+                                          "take",
+                                          "takeLast",
+                                          "takeUntil",
+                                          "takeUntilOther",
+                                          "takeWhile",
+                                          "timeout"
+  );
+
+  public static final List MONO_METHODS = List.of();
+
   @Override
   public MethodVisitor create(final MutationContext context,
                               final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
@@ -28,18 +110,12 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
   }
 
   private static TriFunction<String, String, String, Boolean> reactiveMethods() {
-    return (name, desc, owner) -> {
-      if (desc.contains("Lreactor/core/publisher/Flux;") && owner.equals("reactor/core/publisher/Flux")) {
-        System.out.println("Name " + name + " Desc " + desc + " Owner " + owner);
-        return List.of("filter", "skip", "repeat", "delayElements").contains(name);
-      }
-      else if (desc.contains("Lreactor/core/publisher/Mono;") && owner.equals("reactor/core/publisher/Mono")) {
-        return false;
-      }
-      else {
-        return false;
-      }
-    };
+    return (name, desc, owner) -> FLUX_METHODS.contains(name)
+        && desc.endsWith(REACTOR_FLUX_CLASS + ";")
+        && owner.equals(REACTOR_FLUX_CLASS)
+        || MONO_METHODS.contains(name)
+        && desc.endsWith(REACTOR_MONO_CLASS + ";")
+        && owner.equals(REACTOR_MONO_CLASS);
   }
 
 }
