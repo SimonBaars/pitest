@@ -28,7 +28,18 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
   }
 
   private static TriFunction<String, String, String, Boolean> reactiveMethods() {
-    return (name, desc, owner) -> List.of("filter", "skip", "repeat", "delayElements").contains(name);
+    return (name, desc, owner) -> {
+      if (desc.contains("Lreactor/core/publisher/Flux;") && owner.equals("reactor/core/publisher/Flux")) {
+        System.out.println("Name " + name + " Desc " + desc + " Owner " + owner);
+        return List.of("filter", "skip", "repeat", "delayElements").contains(name);
+      }
+      else if (desc.contains("Lreactor/core/publisher/Mono;") && owner.equals("reactor/core/publisher/Mono")) {
+        return false;
+      }
+      else {
+        return false;
+      }
+    };
   }
 
 }
