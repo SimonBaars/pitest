@@ -11,6 +11,8 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
 
   PATTERN_MATCH_MUTATOR;
 
+  public static final String REACTOR_FLUX_CLASS = "reactor/core/publisher/Flux";
+
   @Override
   public MethodVisitor create(final MutationContext context,
                               final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
@@ -28,7 +30,9 @@ public enum PatternMatchMutator implements MethodMutatorFactory {
   }
 
   private static TriFunction<String, String, String, Boolean> reactiveMethods() {
-    return (name, desc, owner) -> List.of("filter", "skip", "repeat", "delayElements").contains(name);
+    return (name, desc, owner) -> List.of("filter", "skip", "repeat", "delayElements").contains(name)
+        && desc.endsWith(REACTOR_FLUX_CLASS + ";")
+        && owner.equals(REACTOR_FLUX_CLASS);
   }
 
 }
