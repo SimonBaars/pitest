@@ -7,7 +7,7 @@ import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
 import org.pitest.mutationtest.engine.gregor.mutators.MethodCallMethodVisitor;
 
-public enum PatternMatchMutator implements MethodMutatorFactory {
+public enum ReactorReactiveMutator implements MethodMutatorFactory {
 
   REACTOR_REACTIVE_MUTATOR;
 

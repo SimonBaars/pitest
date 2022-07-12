@@ -51,7 +51,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.BigIntegerMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.NakedReceiverMutator;
-import org.pitest.mutationtest.engine.gregor.mutators.experimental.PatternMatchMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.ReactorReactiveMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveIncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveSwitchMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.SwitchMutator;
@@ -165,7 +165,7 @@ public final class Mutator {
         Choice.ORDER, false));
     addGroup("REMOVE_CONDITIONALS", RemoveConditionalMutator.makeMutators());
 
-    add("REMOVE_REACTIVE_METHOD_CALLS", PatternMatchMutator.REACTOR_REACTIVE_MUTATOR);
+    add("REMOVE_REACTIVE_METHOD_CALLS", ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR);
 
     add("TRUE_RETURNS", BooleanTrueReturnValsMutator.BOOLEAN_TRUE_RETURN);
     add("FALSE_RETURNS", BooleanFalseReturnValsMutator.BOOLEAN_FALSE_RETURN);
