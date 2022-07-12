@@ -90,7 +90,7 @@ public enum ReactorReactiveMutator implements MethodMutatorFactory {
                                           "takeWhile",
                                           "timeout"
   );
-  public static final List MONO_MUTATORS = List.of(
+  public static final List MONO_METHODS = List.of(
                                           "cache",
                                           "cacheInvalidateIf",
                                           "cacheInvalidateWhen",
@@ -142,8 +142,6 @@ public enum ReactorReactiveMutator implements MethodMutatorFactory {
                                           "takeUntilOther",
                                           "timeout"
   );
-
-  public static final List MONO_METHODS = List.of();
 
   @Override
   public MethodVisitor create(final MutationContext context,
