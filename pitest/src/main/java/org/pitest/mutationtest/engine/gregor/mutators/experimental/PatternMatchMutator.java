@@ -9,7 +9,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.MethodCallMethodVisitor;
 
 public enum PatternMatchMutator implements MethodMutatorFactory {
 
-  PATTERN_MATCH_MUTATOR;
+  REACTOR_REACTIVE_MUTATOR;
 
   public static final String REACTOR_FLUX_CLASS = "reactor/core/publisher/Flux";
   public static final String REACTOR_MONO_CLASS = "reactor/core/publisher/Mono";

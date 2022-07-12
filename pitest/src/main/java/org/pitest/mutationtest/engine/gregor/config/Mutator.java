@@ -165,10 +165,7 @@ public final class Mutator {
         Choice.ORDER, false));
     addGroup("REMOVE_CONDITIONALS", RemoveConditionalMutator.makeMutators());
 
-    /*
-     * Expanded Mutators for CSTP.
-     */
-    add("REMOVE_CSTP_PATTERN", PatternMatchMutator.PATTERN_MATCH_MUTATOR);
+    add("REMOVE_REACTIVE_METHOD_CALLS", PatternMatchMutator.REACTOR_REACTIVE_MUTATOR);
 
     add("TRUE_RETURNS", BooleanTrueReturnValsMutator.BOOLEAN_TRUE_RETURN);
     add("FALSE_RETURNS", BooleanFalseReturnValsMutator.BOOLEAN_FALSE_RETURN);
