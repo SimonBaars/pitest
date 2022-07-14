@@ -51,7 +51,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.BigIntegerMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.NakedReceiverMutator;
-import org.pitest.mutationtest.engine.gregor.mutators.experimental.ReactorReactiveMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.ReactorReactiveMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveIncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveSwitchMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.SwitchMutator;
@@ -86,6 +86,8 @@ public final class Mutator {
   private static final Map<String, Iterable<MethodMutatorFactory>> MUTATORS = new LinkedHashMap<>();
 
   static {
+
+    add("REMOVE_REACTIVE_METHOD_CALLS", ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR);
 
     /*
      * Default mutator that inverts the negation of integer and floating point
@@ -164,8 +166,6 @@ public final class Mutator {
     add("REMOVE_CONDITIONALS_ORD_ELSE", new RemoveConditionalMutator(
         Choice.ORDER, false));
     addGroup("REMOVE_CONDITIONALS", RemoveConditionalMutator.makeMutators());
-
-    add("REMOVE_REACTIVE_METHOD_CALLS", ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR);
 
     add("TRUE_RETURNS", BooleanTrueReturnValsMutator.BOOLEAN_TRUE_RETURN);
     add("FALSE_RETURNS", BooleanFalseReturnValsMutator.BOOLEAN_FALSE_RETURN);

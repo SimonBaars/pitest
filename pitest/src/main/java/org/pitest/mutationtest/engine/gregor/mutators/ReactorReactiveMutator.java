@@ -1,4 +1,4 @@
-package org.pitest.mutationtest.engine.gregor.mutators.experimental;
+package org.pitest.mutationtest.engine.gregor.mutators;
 
 import java.util.List;
 import org.objectweb.asm.MethodVisitor;
@@ -6,6 +6,7 @@ import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
 import org.pitest.mutationtest.engine.gregor.mutators.MethodCallMethodVisitor;
+import org.pitest.mutationtest.engine.gregor.mutators.experimental.TriFunction;
 
 public enum ReactorReactiveMutator implements MethodMutatorFactory {
 
@@ -160,12 +161,12 @@ public enum ReactorReactiveMutator implements MethodMutatorFactory {
   }
 
   private static TriFunction<String, String, String, Boolean> reactiveMethods() {
-    return (name, desc, owner) -> FLUX_METHODS.contains(name)
-        && desc.endsWith(REACTOR_FLUX_CLASS + ";")
+    return (name, desc, owner) -> desc.endsWith(REACTOR_FLUX_CLASS + ";")
         && owner.equals(REACTOR_FLUX_CLASS)
-        || MONO_METHODS.contains(name)
-        && desc.endsWith(REACTOR_MONO_CLASS + ";")
-        && owner.equals(REACTOR_MONO_CLASS);
+        && FLUX_METHODS.contains(name)
+        || desc.endsWith(REACTOR_MONO_CLASS + ";")
+        && owner.equals(REACTOR_MONO_CLASS)
+        && MONO_METHODS.contains(name);
   }
 
 }
