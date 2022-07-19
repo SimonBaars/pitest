@@ -24,6 +24,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.IncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.InvertNegsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.MathMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.ReactorReactiveMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.returns.BooleanFalseReturnValsMutator;
@@ -93,7 +94,9 @@ public final class Mutator {
    * Proposed new defaults - replaced the RETURN_VALS mutator with the new more stable set
    */
   public static Collection<MethodMutatorFactory> newDefaults() {
-    return combine(group(InvertNegsMutator.INVERT_NEGS,
+    return combine(group(
+        ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR,
+        InvertNegsMutator.INVERT_NEGS,
         MathMutator.MATH,
         VoidMethodCallMutator.VOID_METHOD_CALLS,
         NegateConditionalsMutator.NEGATE_CONDITIONALS,
