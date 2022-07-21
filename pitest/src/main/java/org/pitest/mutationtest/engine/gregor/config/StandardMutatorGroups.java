@@ -10,7 +10,6 @@ public class StandardMutatorGroups implements MutatorGroup {
     public void register(Map<String, List<MethodMutatorFactory>> mutators) {
 
         mutators.put("OLD_DEFAULTS", gather(mutators,"INVERT_NEGS",
-            "REACTOR_REACTIVE_MUTATOR",
             "RETURN_VALS",
                 "MATH",
                 "VOID_METHOD_CALLS",
@@ -19,7 +18,6 @@ public class StandardMutatorGroups implements MutatorGroup {
                 "INCREMENTS"));
 
         mutators.put("DEFAULTS", gather(mutators,"INVERT_NEGS",
-                "REACTOR_REACTIVE_MUTATOR",
                 "MATH",
                 "VOID_METHOD_CALLS",
                 "REMOVE_CONDITIONALS_ORDER_ELSE",
@@ -31,6 +29,9 @@ public class StandardMutatorGroups implements MutatorGroup {
                 "EXPERIMENTAL_SWITCH",
                 "REMOVE_CONDITIONALS_ORDER_IF",
                 "REMOVE_CONDITIONALS_EQUAL_IF"));
+
+        mutators.put("STRONGER+REACTIVE", gather(mutators,"STRONGER",
+                "REACTOR_REACTIVE_MUTATOR"));
 
     }
 

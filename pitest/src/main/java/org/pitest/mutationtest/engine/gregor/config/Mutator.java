@@ -83,7 +83,6 @@ public final class Mutator {
    */
   public static Collection<MethodMutatorFactory> oldDefaults() {
     return group(InvertNegsMutator.INVERT_NEGS,
-        ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR,
         ReturnValsMutator.RETURN_VALS, MathMutator.MATH,
         VoidMethodCallMutator.VOID_METHOD_CALLS,
         NegateConditionalsMutator.NEGATE_CONDITIONALS,
@@ -96,7 +95,6 @@ public final class Mutator {
    */
   public static Collection<MethodMutatorFactory> newDefaults() {
     return combine(group(
-        ReactorReactiveMutator.REACTOR_REACTIVE_MUTATOR,
         InvertNegsMutator.INVERT_NEGS,
         MathMutator.MATH,
         VoidMethodCallMutator.VOID_METHOD_CALLS,
